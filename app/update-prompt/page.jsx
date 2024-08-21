@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -55,7 +54,7 @@ const UpdatePrompt = () => {
 
   return (
     <Form
-      type='Update'
+      type='Edit'
       post={post}
       setPost={setPost}
       submitting={submitting}
