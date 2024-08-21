@@ -15,10 +15,14 @@ const UpdatePrompt = () => {
 
   useEffect(() => {
     const getPromptDetails = async () => {
-      if (!promptId) return;
+      if (!promptId) {
+        setLoading(false);
+        return;
+      }
 
       try {
         const response = await fetch(`/api/prompt/${promptId}`);
+        if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
 
         setPost({
@@ -41,21 +45,24 @@ const UpdatePrompt = () => {
 
     if (!promptId) {
       alert("Missing PromptId!");
+      setIsSubmitting(false);
       return;
     }
 
     try {
       const response = await fetch(`/api/prompt/${promptId}`, {
         method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           prompt: post.prompt,
           tag: post.tag,
         }),
       });
 
-      if (response.ok) {
-        router.push("/");
-      }
+      if (!response.ok) throw new Error('Failed to update');
+      router.push("/");
     } catch (error) {
       console.error("Failed to update prompt:", error);
     } finally {

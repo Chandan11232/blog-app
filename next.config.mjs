@@ -9,7 +9,7 @@ const nextConfig = {
     ],
   },
   env: {
-    MONGO_URI: process.env.MONGO_URI,
+    MONGODB_URI: process.env.MONGODB_URI,
   },
 };
 
